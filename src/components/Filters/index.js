@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { searchFilterChange } from "../../redux/actions";
 import { statusFilterChange } from "../../redux/actions";
+import { prioritiesFilterChange } from "../../redux/actions";
 const { Search } = Input;
 
 export default function Filters() {
@@ -10,6 +11,7 @@ export default function Filters() {
 
   const [searchText, setSearchText] = useState("");
   const [filterStatus, setFilterStatus] = useState("All");
+  const [filterPriorities, setFilterPriorities] = useState([]);
 
   const handleSearchTextChange = (e) => {
     setSearchText(e.target.value);
@@ -19,6 +21,12 @@ export default function Filters() {
   const handleStatusChange = (e) => {
     setFilterStatus(e.target.value);
     dispatch(statusFilterChange(e.target.value));
+  };
+
+  const handlePrioritiesChange = (value) => {
+    console.log({ value });
+    setFilterPriorities(value);
+    dispatch(prioritiesFilterChange(value));
   };
 
   return (
@@ -58,6 +66,8 @@ export default function Filters() {
           allowClear
           placeholder="Please select"
           style={{ width: "100%" }}
+          value={filterPriorities}
+          onChange={handlePrioritiesChange}
         >
           <Select.Option value="High" label="High">
             <Tag color="red">High</Tag>
